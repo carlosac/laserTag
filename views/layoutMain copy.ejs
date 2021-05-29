@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <title>Calango Laser Tag</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="http:////code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/menuLateral.css">
+    <link rel="stylesheet" href="/css/radioSwitch.css">
+
+    <style>
+    .ui-menu { width: 200px; }
+    .ui-widget-header { padding: 0.2em; }
+    </style>
+
+</head>
+
+<body>
+    <div class="area">
+        <div class="container">
+            <%- body %>
+        </div>
+    </div>
+
+    <nav class="main-menu">
+        <ul>
+            <li>
+                <a href="/dashboard">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Dashboard
+                    </span>
+                </a>
+
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    <i class="fa fa-laptop fa-2x"></i>
+                    <span class="nav-text">
+                        Placas Arduino
+                    </span>
+                </a>
+
+            </li>
+            <li class="has-subnav">
+                <a href="#">
+                    <i class="fa fa-play-circle fa-2x"></i>
+                    <span class="nav-text">
+                        Novo Jogo
+                    </span>
+                </a>
+
+            </li>
+            <li class="has-subnav">
+                <a href="/cadastro">
+                    <i class="fa fa-list fa-2x"></i>
+                    <span class="nav-text">
+                        Cadastros
+                    </span>
+                </a>
+
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-bar-chart-o fa-2x"></i>
+                    <span class="nav-text">
+                        Relatórios
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/users/">
+                    <i class="fa fa-users fa-2x"></i>
+                    <span class="nav-text">
+                        Usuários
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-table fa-2x"></i>
+                    <span class="nav-text">
+                        Parâmetros
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-info fa-2x"></i>
+                    <span class="nav-text">
+                        Informações
+                    </span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="logout">
+            <li>
+                <a href="/users/logout">
+                    <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">
+                        Sair
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    </div>
+
+
+</body>
+
+</html>

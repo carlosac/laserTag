@@ -1,0 +1,149 @@
+<h1>Cadastros</h1>
+<ul id="menu">
+    <li class="ui-widget-header">
+        <div>Gerencial</div>
+    </li>
+    <li>
+        <div id="userMenu">Usuário</div>
+    </li>
+    <li>
+        <div>Perfil</div>
+    </li>
+    <li class="ui-widget-header">
+        <div>Hardware</div>
+    </li>
+    <li>
+        <div>Placa arduíno</div>
+    </li>
+    <li>
+        <div>Componentes</div>
+    </li>
+</ul>
+
+<div id="dialog-form" title="Create new user">
+    <p class="validateTips">All form fields are required.</p>
+
+    <form>
+        <fieldset>
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="Jane Smith" class="text ui-widget-content ui-corner-all">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email" value="jane@smith.com"
+                class="text ui-widget-content ui-corner-all">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" value="xxxxxxx"
+                class="text ui-widget-content ui-corner-all">
+
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </fieldset>
+    </form>
+</div>
+
+<div id="dialog" title="Basic dialog">
+
+    <%- include('users'); -%>
+    
+</div>
+
+
+
+
+<script src="/js/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+    $(function () {
+        $("#menu").menu({
+            items: "> :not(.ui-widget-header)"
+        });
+    });
+    $(function () {
+        var dialog, dialog2, form,
+
+            // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+            emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+            name = $("#name"),
+            email = $("#email"),
+            password = $("#password"),
+            allFields = $([]).add(name).add(email).add(password),
+            tips = $(".validateTips");
+
+        function updateTips(t) {
+            tips
+                .text(t)
+                .addClass("ui-state-highlight");
+            setTimeout(function () {
+                tips.removeClass("ui-state-highlight", 1500);
+            }, 500);
+        }
+
+        function checkLength(o, n, min, max) {
+            if (o.val().length > max || o.val().length < min) {
+                o.addClass("ui-state-error");
+                updateTips("Length of " + n + " must be between " +
+                    min + " and " + max + ".");
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        function checkRegexp(o, regexp, n) {
+            if (!(regexp.test(o.val()))) {
+                o.addClass("ui-state-error");
+                updateTips(n);
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+
+        dialog = $("#dialog-form").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,
+            buttons: {
+               
+                Cancel: function () {
+                    dialog.dialog("close");
+                }
+            },
+            close: function () {
+                allFields.removeClass("ui-state-error");
+            }
+        });
+        dialog2 = $("#dialog").dialog({
+            autoOpen: false,
+            height: 400,
+            width: 350,
+            modal: true,
+            buttons: {
+               
+                Novo: function () {
+                    dialog.dialog("open");
+                },
+                Cancel: function () {
+                    dialog2.dialog("close");
+                }
+            },
+            close: function () {
+                allFields.removeClass("ui-state-error");
+            }
+        });
+
+
+
+        $("#userMenu").on("click", function () {
+            dialog2.dialog("open");
+        });
+        $("#novoUser").on("click", function () {
+            dialog.dialog("open");
+        });
+    });
+    $("#create-user").button().on("click", function () {
+        dialog.dialog("open");
+    });
+</script>

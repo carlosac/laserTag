@@ -1,0 +1,83 @@
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Componente</h4>
+                <div class="table-responsive">
+                    <table class="table">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Tipo da porta</th>
+                <th>Descricao</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+          
+              <% componentes.forEach(function(componente, index){ %>
+                <%- include('cards', {componente: componente, index: index}); %>
+                  <% }); %>
+            </tbody>
+          </table>
+          
+          <h4>&nbsp;</h4>
+                <button type="button" class="btn btn-outline-success" data-toggle="modal"
+                    data-target="#exampleModalCenter">
+                    + Novo Componente
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Cadastro de Perfil</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/componente/incluir" method="POST">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Nome do Componente</label>
+                                        <input type="text" class="form-control" placeholder="Digite o nome do Componente"
+                                            name="name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tipo do Componente</label>
+                                        <p><select class="btn btn-outline-primary" name="tipo">
+                                            <option value="LED">LED</option>
+                                            <option value="LDR">LDR</option>
+                                            <option value="LASER">LASER</option>
+                                            <option value="BUZZER">BUZZER</option>
+                                        </select></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Tipo da porta</label>
+                                        <p><select class="btn btn-outline-primary" name="tipoPorta">
+                                            <option value="Digital">Digital</option>
+                                            <option value="Analogica">Analogica</option>
+                                        </select></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Descricao</label>
+                                        <input type="text" class="form-control" placeholder="Digite a descrição do componente"
+                                            name="descricao">
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary"
+                                    data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-outline-primary">Salvar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

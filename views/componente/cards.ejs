@@ -1,0 +1,103 @@
+<tr>
+  <td>
+    <%= componente.name %>
+  </td>
+  <td>
+    <%= componente.tipo %>
+  </td>
+  <td>
+    <%= componente.tipoPorta %>
+  </td>
+  <td>
+    <%= componente.descricao %>
+  </td>
+  
+    <td>
+      
+      <form class="form-inline" id="switch-one<%= index %>" action="/componente/excluir/" method="POST">
+        <input type="hidden" name="id" value="<%= componente._id %>">
+
+        <button type="button" id="alterarPerfil" class="btn btn-outline-primary"  data-toggle="modal" data-target="#modalEditarPerfil<%= index %>">
+          Alterar
+        </button>
+        &nbsp;
+        
+        <div id="excluirDialog"></div>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal<%= index %>">
+          <i class="mdi mdi-delete" ></i> Excluir
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Componente?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Deseja realmente excluir o componente <b> <%= componente.name %>? </b>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-outline-primary" >Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</td>
+</tr>
+
+<div class="modal fade" id="modalEditarPerfil<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Atualizar Componente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/componente/atualizar" method="POST">
+          <input type="hidden"  value="<%= componente._id %>" placeholder="Digite o nome do Componente" name="id">
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Nome do Componente: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= componente.name %>" placeholder="Digite o nome do Componente" name="name">
+          </div>
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Tipo: &nbsp;  </label>
+              <p><select class="btn btn-outline-primary" name="tipo">
+                  <option value="LED" <%=componente.tipo == 'LED' ? 'SELECTED' : '' %>>LED</option>
+                  <option value="LDR" <%=componente.tipo == 'LDR' ? 'SELECTED' : '' %>>LDR</option>
+                  <option value="LASER" <%=componente.tipo == 'LASER' ? 'SELECTED' : '' %>>LASER</option>
+                  <option value="BUZZER" <%=componente.tipo == 'BUZZER' ? 'SELECTED' : '' %>>BUZZER</option>
+              </select></p>
+          </div>
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Tipo da porta: &nbsp;  </label>
+              <p><select class="btn btn-outline-primary" name="tipoPorta">
+                  <option value="Digital" <%=componente.tipoPorta == 'Digital' ? 'SELECTED' : '' %>>Digital</option>
+                  <option value="Analogica" <%=componente.tipoPorta == 'Analogica' ? 'SELECTED' : '' %>>Analogica</option>
+              </select></p>
+          </div>
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Descricao: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= componente.descricao %>" placeholder="Digite a Descricao" name="descricao">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-outline-primary">Salvar</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

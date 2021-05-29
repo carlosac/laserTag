@@ -1,0 +1,283 @@
+<div class="row ">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Help</h4>
+               
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Passo a Passo - CRUD Completo</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-componentes-tab" data-toggle="pill" href="#pills-componentes" role="tab" aria-controls="pills-componentes" aria-selected="false">models/componente.js</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Contact</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <h2>Exemplo real feito para o CRUD de componentes</h2>
+                    </p>
+                        <h2>1. Acrescentar no menu lateral o link para Componentes</h2>
+                        <p>
+                            Alterar o arquivo views/partials/menuLateral.ejs adicionando um subitem no menu de cadastro
+                        </p>
+                        <pre>
+&lt;li class="nav-item menu-items"&gt;
+  &lt;a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic"&gt;
+    &lt;span class="menu-icon"&gt;
+      &lt;i class="mdi mdi-laptop"&gt;&lt;/i&gt;
+    &lt;/span&gt;
+    &lt;span class="menu-title"&gt;Cadastro&lt;/span&gt;
+    &lt;i class="menu-arrow"&gt;&lt;/i&gt;
+  &lt;/a&gt;
+  &lt;div class="collapse" id="ui-basic"&gt;
+    &lt;ul class="nav flex-column sub-menu"&gt;
+      &lt;li class="nav-item"&gt; &lt;a class="nav-link" href="/users"&gt;Usuário&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="nav-item"&gt; &lt;a class="nav-link" href="/perfil"&gt;Perfil&lt;/a&gt;&lt;/li&gt;
+     <b> &lt;li class="nav-item"&gt; &lt;a class="nav-link" href="/componente"&gt;Componentes&lt;/a&gt;&lt;/li&gt; </b>
+      &lt;li class="nav-item"&gt; &lt;a class="nav-link" href=""&gt;Arduíno&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/li&gt;
+                        </pre>
+                        <h6>2. Criar view(HTML)</h6>
+                        <p>Criar o arquivo views/componente/componente.ejs com apenas um 'Hello World'</p>
+                        <pre>Hello world</pre>
+                        <h6>3. Criar rota</h6>
+                        <p>3.1 Criar o arquivo /routes/componentes.js adicionando a view que criamos no item 2</p> 
+                        <p>3.2 Fazer os import's necessários</p>
+                        <i>Express   : Framework principal utilizado pelo sistema<br/>
+                            Router    : Responsável por fazer o redirecionamento do sistema<br/>
+                            Auth      : Validação de usuário logado (segurança)</i><br/><p/>
+                            
+                        <pre>
+const express = require('express');
+const router = express.Router();
+const { ensureAuthenticated } = require('../config/auth');
+                       </pre>
+                        <p>3.3 Rota principal </p>
+                        
+<pre>
+router.get('/', ensureAuthenticated, (req, res) => {
+    return res.render('componente/componente', {
+        user: req.user,
+        layout: 'layoutMain'
+    });
+});
+module.exports = router;
+</pre>
+<br> <u><i>router.get('/'</i></u> : link raiz dentro de componente. (localhost:3000/componente/)
+<br> <u><i>ensureAuthenticated</i></u> : Requer usuário logado. 
+<br> <u><i>(req, res)</i></u> : Requisição (dados entrado) e resposta (dados saída)
+<br> <u><i>return res.render('componente/componente', {</i></u> : Renderizar página em views/componente/componente.ejs
+<br> <u><i>user: req.user</i></u> : Envia para a página que vai ser renderizada o objeto user (usuário logado) para apresentar no menu
+<br> <u><i>layout: 'layoutMain'</i></u> : Layout utilizado na página
+<br> <u><i>module.exports = router</i></u> : Exporta a rota criada para quem utilizar essa rota
+<p/>
+<h6>4. Alterar o app.js para utilizar a nova rota criada</h6>
+<pre>
+app.use(express.static("public"));
+//Routes
+app.use('/', require('./routes/index'));
+app.use('/users', require('./routes/users'));
+app.use('/help', require('./routes/help'));
+app.use('/perfil', require('./routes/perfil'));
+app.use('/cadastro', require('./routes/cadastro'));
+<b>app.use('/componente', require('./routes/componentes'));</b>
+
+app.listen(3000); 
+</pre>
+<p><i>app.use('/componente'</i> Qualquer acesso a /componente ou qualquer filho ex.: '/componente/excluir' a rota que criamos que vai tratar a requisição.</p>
+<p>Nesse ponto, ao acessar o link de componentes, o sistema deverá apresentar o ejs criado e apresentar o "Hello World"</p>
+                        <h6>1. Incluindo formulário para inclusão de componente</h6>
+                        <p>1.1 Acrescentando o bloco css em views/componente/componente.ejs</p> 
+                        <pre>
+&lt;div class="row "&gt;
+    &lt;div class="col-12 grid-margin"&gt;
+        &lt;div class="card"&gt;
+            &lt;div class="card-body"&gt;
+                &lt;h4 class="card-title"&gt;Componente&lt;/h4&gt;
+                Hello World
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+                        </pre>
+                        <p>1.1 Criando botão e popup para inclusao em views/componente/componente.ejs</p>
+                        <pre>
+                &lt;button type="button" class="btn btn-outline-success" data-toggle="modal"
+                    data-target="#exampleModalCenter"&gt;
+                    + Novo Componente
+                &lt;/button&gt;
+
+                &lt;!-- Modal --&gt;
+                &lt;div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true"&gt;
+                    &lt;div class="modal-dialog modal-dialog-centered" role="document"&gt;
+                        &lt;div class="modal-content"&gt;
+                            &lt;div class="modal-header"&gt;
+                                &lt;h5 class="modal-title" id="exampleModalLongTitle"&gt;Cadastro de Perfil&lt;/h5&gt;
+                                &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close"&gt;
+                                    &lt;span aria-hidden="true"&gt;&times;&lt;/span&gt;
+                                &lt;/button&gt;
+                            &lt;/div&gt;
+                            &lt;div class="modal-body"&gt;
+                                &lt;form action="/componente/incluir" method="POST"&gt;
+                                    &lt;div class="form-group"&gt;
+                                        &lt;label for="exampleInputEmail1"&gt;Nome do Componente&lt;/label&gt;
+                                        &lt;input type="text" class="form-control" placeholder="Digite o nome do Componente"
+                                            name="name"&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="form-group"&gt;
+                                        &lt;label for="exampleInputEmail1"&gt;Tipo do Componente&lt;/label&gt;
+                                        &lt;select class="btn btn-outline-primary" name="tipo"&gt;
+                                            &lt;option value="Digital"&gt;Digital&lt;/option&gt;
+                                            &lt;option value="Analogica"&gt;Analogica&lt;/option&gt;
+                                        &lt;/select&gt;
+                                    &lt;/div&gt;
+                                    &lt;div class="form-group"&gt;
+                                        &lt;label for="exampleInputEmail1"&gt;Porta&lt;/label&gt;
+                                        &lt;input type="text" class="form-control" placeholder="Digite a porta. Ex.: A0"
+                                            name="porta"&gt;
+                                    &lt;/div&gt;
+                            &lt;/div&gt;
+                            &lt;div class="modal-footer"&gt;
+                                &lt;button type="button" class="btn btn-outline-secondary"
+                                    data-dismiss="modal"&gt;Cancelar&lt;/button&gt;
+                                &lt;button type="submit" class="btn btn-outline-primary"&gt;Salvar&lt;/button&gt;
+                                &lt;/form&gt;
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                        </pre>
+                        <h2>1. Criar model</h2>
+                        <p>1.1 Criar o arquivo /models/componentes.js</p> 
+                        <p>1.2 Fazer o import do mongoose</p>
+                        <pre>const mongoose = require('mongoose');</pre>
+                        <p>1.3 Criar o Schema do mongoose com os campos desejados</p>
+                        <pre>
+const ComponenteSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    tipo: {
+        type: String,
+        enum: ['Digital', 'Analogica'],
+        required: true
+    },
+    porta: {
+        type: String,
+        required: true
+    }
+});
+                        </pre>
+
+                        <p>1.3 Vincular o Schema a model</p>
+                        <pre>const Componente = mongoose.model('Componente', ComponenteSchema);</pre>
+                        <p>1.3 Exportar para ser utilizado</p>
+                        <pre>module.exports = Componente;</pre>
+
+                        <h2>1. Implementando o método incluir na rota de componentes</h2>
+                        <p>1.1 Alterar /routes/componentes.js</p> 
+                        <pre>
+router.post('/incluir', ensureAuthenticated, (req, res) => {
+    var msg = 'Cadastrado com sucesso!';
+    var tipoMsg = 'success_msg';
+    const { name, tipo, porta } = req.body;
+    const novoComponente = new Componente({
+      name: name,
+      tipo: tipo,
+      porta: porta
+    });
+  
+    novoComponente.save(function (err) {
+      if (err) {
+        msg = 'Erro no cadastro do Componente. Verifique o log!';
+        tipoMsg = 'error_msg';
+        console.log(err.name + ' -> ' + err.code)
+      }
+  
+      req.flash(tipoMsg, msg);
+      res.redirect('/componente');
+    });
+  
+  })
+                        </pre>
+
+                        <h6>2. Criar rota</h6>
+                        <p>2.1 Criar o arquivo /routes/componentes.js</p> 
+                        <p>2.2 Fazer os import's necessários</p>
+                        <i>Express   : Framework principal utilizado pelo sistema<br/>
+                            Router    : Responsável por fazer o redirecionamento do sistema<br/>
+                            Componente: Permite utilizar o CRUD com mongoose<br/>
+                            Auth      : Validação de usuário logado (segurança)</i><br/><p/>
+                            
+                        <pre>
+const express = require('express');
+const router = express.Router();
+const Componente = require("../models/componente");
+const { ensureAuthenticated } = require('../config/auth');
+                       </pre>
+                        <p>2.3 Rota principal - Retornar todos os registros</p>
+                        
+<pre>
+router.get('/', ensureAuthenticated, (req, res) => {
+    var componentes = [];
+    Componente.find({}, null, {}).
+        then(componentes => {
+            return res.render('componente/componente', {
+                componentes: componentes,
+                user: req.user,
+                layout: 'layoutMain'
+            });
+        });
+});
+</pre>
+Quando o usuário acionar o link <i><u>componente/</u></i> o sistema retorna todos os registros.
+<br> <u><i>router.get('/'</i></u> : link raiz dentro de componente. (localhost:3000/componente/)
+<br> <u><i>ensureAuthenticated</i></u> : Requer usuário logado. 
+<br> <u><i>(req, res)</i></u> : Requisição (dados entrado) e resposta (dados saída)
+<br> <u><i>var componentes = []</i></u> : Criando array vazio que conterá os componentes da base
+<br> <u><i>Componente.find({}, null, {}).</i></u> : Acionando o objeto Componente e o método find que faz a consulta na base
+<br> <u><i>then(componentes => {</i></u> : Após a resposta da consulta, armazenar resposta em componentes criado no início
+<br> <u><i>return res.render('componente/componente', {</i></u> : Renderizar página em views/componente/componente.ejs
+<br> <u><i>componentes: componentes</i></u> : Envia para a página que vai ser renderizada o objeto componentes
+<br> <u><i>user: req.user</i></u> : Envia para a página que vai ser renderizada o objeto user (usuário logado)
+<br> <u><i>layout: 'layoutMain'</i></u> : Layout utilizado na página
+                    
+                    </div>
+                    <div class="tab-pane fade" id="pills-componentes" role="tabpanel" aria-labelledby="pills-componentes-tab">
+<pre>
+const mongoose = require('mongoose');
+const ComponenteSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    tipo: {
+        type: String,
+        enum: ['Digital', 'Analogica'],
+        required: true
+    },
+    porta: {
+        type: String,
+        required: true
+    }
+});
+const Componente = mongoose.model('Componente', ComponenteSchema);
+
+module.exports = Componente;<!--  -->
+</pre>
+<!--  -->                            
+                    </div>
+                    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">...3</div>
+                  </div>
+
+            </div>
+        </div>
+    </div>
+</div>

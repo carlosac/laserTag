@@ -1,0 +1,41 @@
+<div class="row ">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Usuários</h4>
+        <div class="table-responsive">
+          <table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Conta ativa</th>
+      <th>Perfil</th>
+      <th>Ação</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% usuarios.forEach(function(user, index){ %>
+      <%- include('cards', {user: user, index: index}); %>
+        <% }); %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+<script>
+ 
+  $('input[type=checkbox]').on('change', function () {
+    $(this).closest("form").submit();
+  });
+</script>

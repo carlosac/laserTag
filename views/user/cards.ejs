@@ -1,0 +1,75 @@
+<tr>
+  <td>
+    <%= user.name %>
+  </td>
+  <td>
+    <%= user.email %>
+  </td>
+  <td>
+
+      <form id="switch-one<%= index %>" action="/users/editar/" method="POST">
+        <input type="hidden" name="email" value="<%= user.email %>">
+        <input type="hidden" name="id" value="<%= user._id %>">
+        <input type="hidden" name="nome" value="<%= user.name %>">
+        <input type="hidden" name="perfil" value="<%= user.perfil %>">
+        
+        
+        <input type="hidden" name="radioAtivo"  <%=user.ativo ? 'value=false' : 'value=true' %> <%=user.ativo ? 'checked' : '' %>>
+        
+        <button class="form-check btn btn-outline-<%=user.ativo ? 'danger' : 'success' %> " type="submit"><%=user.ativo ? 'Desativar' : 'Ativar' %> Conta</button>
+      </form>
+        
+      </td>
+      <td>
+        <form id="switch-two<%= index %>" action="/users/editar/" method="POST">
+          <input type="hidden" name="email" value="<%= user.email %>">
+          <input type="hidden" name="id" value="<%= user._id %>">
+          <input type="hidden" name="nome" value="<%= user.name %>">
+          <input type="hidden" name="radioAtivo" value="<%= user.ativo %>">
+
+        <select class="btn btn-outline-primary" id="perfil<%= index %>" name="perfil" type="text" onchange="this.form.submit()">
+          
+          <% perfis.forEach(function(perfil){ %>
+            <option value="<%= perfil.codigoPerfil %>" <%=user.perfil==perfil.codigoPerfil ? 'SELECTED' : '' %> ><%= perfil.name %></option>            
+          <% }); %>
+          
+        </select>
+      </form>
+    </td>
+    <td>
+      
+      <form id="switch-one<%= index %>" action="/users/excluir/" method="POST">
+        <input type="hidden" name="id" value="<%= user._id %>">
+        
+        <div id="excluirDialog"></div>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal<%= index %>">
+          <i class="mdi mdi-delete" "></i> Excluir
+        </button>
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir usuário</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Deseja realmente excluir o usuário <%= user.name %>?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-outline-primary" >Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</td>
+</tr>

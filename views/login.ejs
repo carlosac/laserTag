@@ -1,0 +1,40 @@
+
+<div class="login-page">
+    <div class="form">
+        <form class="register-form" action="/users/register" method="POST">
+            <input type="name" name="name" placeholder="Nome" value="<%= typeof name != 'undefined' ? name : '' %>" />
+            <input type="email" name="email" placeholder="Email"
+                value="<%= typeof email != 'undefined' ? email : '' %>" />
+            <input type="password" name="password" placeholder="Senha"
+                value="<%= typeof password != 'undefined' ? password : '' %>" />
+            <input type="password" name="password2" placeholder="Confirmar Senha"
+                value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+            <button type="submit">Salvar</button>
+            <p class="message">Já possui cadastro? <a href="#">Entrar</a></p>
+        </form>
+        <form class="login-form" action="/users/login" method="POST">
+            <input type="email" name="email" placeholder="Email" />
+            <input type="password" name="password" placeholder="Senha" />
+            <button type="submit" class="btn btn-primary btn-block">login</button>
+            <p class="message">Não tem conta? <a href="#">Registrar</a></p>
+        </form>
+        <div id='mensagens'>
+            <%- include ('./partials/messages') %>
+
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<% if (typeof name !='undefined' ) { %>
+    <script>
+        jQuery(window).load(function () {
+            $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+        });
+    </script>
+    <% } %>
+        <script>
+            $('.message a').click(function () {
+                $('form').animate({ height: "toggle", opacity: "toggle" }, "slow");
+                $('#mensagens').hide();
+            });
+        </script>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include ('./partials/head') %>
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_sidebar.html -->
+        <%- include ('./partials/menuLateral') %>
+        
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_navbar.html -->
+            <%- include ('./partials/menuTopo') %>
+            
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <%- include ('./partials/messages') %>
+                    <%- body %>
+                </div>
+            <!-- content-wrapper ends -->
+            <%- include ('./partials/footerTpl') %>
+            
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<%- include ('./partials/blocoJsTpl') %>
+  </body>
+</html>
