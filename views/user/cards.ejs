@@ -1,36 +1,36 @@
 <tr>
   <td>
-    <%= user.name %>
+    <%= usuario.name %>
   </td>
   <td>
-    <%= user.email %>
+    <%= usuario.email %>
   </td>
   <td>
 
       <form id="switch-one<%= index %>" action="/users/editar/" method="POST">
-        <input type="hidden" name="email" value="<%= user.email %>">
-        <input type="hidden" name="id" value="<%= user._id %>">
-        <input type="hidden" name="nome" value="<%= user.name %>">
-        <input type="hidden" name="perfil" value="<%= user.perfil %>">
+        <input type="hidden" name="email" value="<%= usuario.email %>">
+        <input type="hidden" name="id" value="<%= usuario._id %>">
+        <input type="hidden" name="nome" value="<%= usuario.name %>">
+        <input type="hidden" name="perfil" value="<%= usuario.perfil %>">
         
         
-        <input type="hidden" name="radioAtivo"  <%=user.ativo ? 'value=false' : 'value=true' %> <%=user.ativo ? 'checked' : '' %>>
-        
-        <button class="form-check btn btn-outline-<%=user.ativo ? 'danger' : 'success' %> " type="submit"><%=user.ativo ? 'Desativar' : 'Ativar' %> Conta</button>
+        <input type="hidden" name="radioAtivo"  <%=usuario.ativo ? 'value=false' : 'value=true' %> <%=usuario.ativo ? 'checked' : '' %>>
+        <button class="form-check btn btn-outline-<%=usuario.ativo ? 'danger' : 'success' %> " type="submit"><%=usuario.ativo ? 'Desativar' : 'Ativar' %> Conta</button>
       </form>
-        
-      </td>
-      <td>
-        <form id="switch-two<%= index %>" action="/users/editar/" method="POST">
-          <input type="hidden" name="email" value="<%= user.email %>">
-          <input type="hidden" name="id" value="<%= user._id %>">
-          <input type="hidden" name="nome" value="<%= user.name %>">
-          <input type="hidden" name="radioAtivo" value="<%= user.ativo %>">
+      
+    </td>
+    <td>
+      <form id="switch-two<%= index %>" action="/users/editar/" method="POST">
+        <input type="hidden" name="email" value="<%= usuario.email %>">
+        <input type="hidden" name="id" value="<%= usuario._id %>">
+        <input type="hidden" name="nome" value="<%= usuario.name %>">
+        <input type="hidden" name="radioAtivo" value="<%= usuario.ativo %>">
 
-        <select class="btn btn-outline-primary" id="perfil<%= index %>" name="perfil" type="text" onchange="this.form.submit()">
-          
+        <select class="btn btn-outline-primary" id="<%= usuario.perfil._id%>" name="perfil" type="text" onchange="this.form.submit()">
           <% perfis.forEach(function(perfil){ %>
-            <option value="<%= perfil.codigoPerfil %>" <%=user.perfil==perfil.codigoPerfil ? 'SELECTED' : '' %> ><%= perfil.name %></option>            
+
+            <%= perfil._id %>
+            <option value="<%= perfil._id %>" <%= usuario.perfil.codigoPerfil == perfil.codigoPerfil ? 'SELECTED' : '' %>  ><%= perfil.name %></option>            
           <% }); %>
           
         </select>
@@ -39,7 +39,7 @@
     <td>
       
       <form id="switch-one<%= index %>" action="/users/excluir/" method="POST">
-        <input type="hidden" name="id" value="<%= user._id %>">
+        <input type="hidden" name="id" value="<%= usuario._id %>">
         
         <div id="excluirDialog"></div>
         <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal<%= index %>">
@@ -57,7 +57,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                Deseja realmente excluir o usuário <%= user.name %>?
+                Deseja realmente excluir o usuário <%= usuario.name %>?
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>

@@ -22,7 +22,7 @@ router.get('/', ensureAuthenticated, async (req, res) => {
         codigoPerfil: 1
       }
     });
-    console.log(users);
+    console.log(users[0].perfil);
     res.render('user/users', {
       usuarios: users,
       perfis: perfis,
@@ -86,9 +86,9 @@ router.post('/excluir', ensureAuthenticated, (req, res) => {
   User.findByIdAndRemove(id).exec();
   res.redirect('/users');
 })
-router.post('/editar', ensureAuthenticated, (req, res) => {
-  // console.log("ativo: " + req.params.ativo);
-  // console.log("user: " + req.params.user);
+router.post('/editar', ensureAuthenticated, async (req, res) => {
+  console.log("ativo: " + req.params.ativo);
+  console.log("user: " + req.params.user);
   console.log("nome: " + req.body.nome);
   console.log("email: " + req.body.email);
   console.log("ativo: " + req.body.radioAtivo);
@@ -104,18 +104,33 @@ router.post('/editar', ensureAuthenticated, (req, res) => {
       doc.name = req.body.nome;
       doc.email = req.body.email;
       doc.ativo = req.body.radioAtivo;
-      doc.perfilVinculado = req.body.perfil;
+      doc.perfil = req.body.perfil;
       doc.save();
       req.flash('success_msg', 'Usuário atualizado!');
       res.redirect('/users');
-      
+
     } catch (error) {
       console.log('Error: ', error)
       req.flash('error_msg', 'error');
       res.redirect('/users');
-      
+
     }
   })
+  // const { nome, email, ativo, perfil } = req.body;
+  // try {
+
+  //   const user = await User.findByIdAndUpdate(req.body.id, {
+  //     nome, email, ativo, perfil
+  //   }, { new: true });
+  //   await user.save();
+  //   req.flash('success_msg', 'Usuário atualizado!');
+  //   res.redirect('/users');
+  // } catch (error) {
+  //   console.log(error);
+  //   req.flash('error_msg', 'Erro no update do User!');
+  //   res.redirect('/users');
+  // }
+
 
 })
 //register post handle
@@ -147,16 +162,32 @@ router.post('/register', (req, res) => {
     //validation passed
     User.findOne({ email: email }).exec((err, user) => {
       console.log(user);
+      let perfilId;
       if (user) {
         errors.push({ msg: 'Email já cadastrado' });
         res.render('login', { errors, name, email, password, password2 })
       } else {
         var contaAtiva = email == 'admin@admin.com' ? true : false;
+        if (contaAtiva) {
+          const novoPerfil = new Perfil({
+            name: 'Administrador',
+            codigoPerfil: 1
+          });
+
+          novoPerfil.save(function (err) {
+            if (err) {
+              console.log(err)
+            }
+          });
+          console.log(novoPerfil);
+          perfilId = novoPerfil._id;
+        }
         const newUser = new User({
           name: name,
           email: email,
           password: password,
-          ativo: contaAtiva
+          ativo: contaAtiva,
+          perfil: perfilId
         });
 
         //hash password

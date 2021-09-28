@@ -1,0 +1,102 @@
+<tr>
+  <td>
+    <%= install.arduino.name %>
+  </td>
+  <td>
+    <%= install.componente.name %>
+  </td>
+  <td>
+    <%= install.portaArduino %>
+  </td>
+  <td>
+    <%= install.componente.tipoPorta %>
+  </td>
+  
+    <td>
+      
+      <form class="form-inline" id="switch-one<%= index %>" action="/install/excluir/" method="POST">
+        <input type="hidden" name="id" value="<%= install._id %>">
+        <input type="hidden" name="arduino" value="<%= install.arduino._id %>">
+
+        
+        <div id="excluirDialog"></div>
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal<%= index %>">
+          <i class="mdi mdi-delete" ></i> Desinstalar componente
+        </button>
+        
+        
+        &nbsp;
+        <a href="/install/listar/<%= install.arduino._id %>">
+        <button type="button" class="btn btn-outline-success" >
+          <i class="mdi mdi-power" ></i> ON / OFF
+        </button>
+        </a>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Desinstalar componente?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Deseja realmente desinstalar <b> <%= install.componente.name %> da porta <%= install.portaArduino %>? </b>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-outline-primary" >Confirmar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+</td>
+</tr>
+
+<div class="modal fade" id="modalEditarPerfil<%= index %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Atualizar Arduino</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/arduino/atualizar" method="POST">
+          <input type="hidden"  value="<%= install.arduino._id %>" name="id">
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Nome do Componente: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= install.arduino.name %>" placeholder="Digite o nome do Arduino" name="name">
+          </div>
+         
+          <div class="form-inline">
+            <label for="exampleInputEmail1">Descricao: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= install.arduino.description %>" placeholder="Digite a Descricao" name="description">
+          </div>
+         
+          <div class="form-inline">
+            <label for="exampleInputEmail1">IP: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= install.arduino.ip %>" placeholder="Digite o IP" name="ip">
+          </div>
+         
+          <div class="form-inline">
+            <label for="exampleInputEmail1"> Porta: &nbsp;</label>
+            <input type="text" class="form-control" value="<%= install.arduino.port %>" placeholder="Digite a porta" name="port">
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-outline-primary">Salvar</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,7 @@ date :{
     type : Date,
     default : Date.now
 },
-perfilVinculado :{
+perfil :{
     type : mongoose.Schema.Types.ObjectId,
     ref : 'Perfil'
 }

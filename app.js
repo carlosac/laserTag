@@ -18,7 +18,7 @@ var dt      = require( 'datatables.net' )( window, $ );
 //passport config:
 require('./config/passport')(passport)
 //mongoose
-mongoose.connect('mongodb://localhost/test', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/laserTag3', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('connected,,'))
     .catch((err) => console.log(err));
 
@@ -52,5 +52,7 @@ app.use('/help', require('./routes/help'));
 app.use('/perfil', require('./routes/perfil'));
 app.use('/cadastro', require('./routes/cadastro'));
 app.use('/componente', require('./routes/componentes'));
+app.use('/arduino', require('./routes/arduino'));
+app.use('/install', require('./routes/install'));
 
 app.listen(3000); 

@@ -6,7 +6,7 @@ const ComponenteSchema = new mongoose.Schema({
     },
     tipo: {
         type: String,
-        enum: ['LED', 'LDR', 'LASER', 'BUZZER' ],
+        enum: ['LED', 'LDR', 'LASER', 'BUZZER', 'BOTAO' ],
         message: '{VALUE} é inválido',
         required: true
     },
