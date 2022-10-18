@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Arduino = require("../models/arduino");
+const server = require("../models/ArduinoServer");
 const { ensureAuthenticated } = require('../config/auth');
+
 
 
 router.post('/incluir', ensureAuthenticated, async (req, res) => {
@@ -75,6 +77,11 @@ router.post('/excluir', ensureAuthenticated, (req, res) => {
   Arduino.findByIdAndRemove(id).exec();
   req.flash('success_msg', 'Excluído com sucesso!');
   res.redirect('/Arduino');
+})
+router.get('/ligarLed/:ledPorta/:arduinoId', (req, res) => {
+  server.toggleLed(req.params.ledPorta);
+  req.flash('success_msg', 'Comando enviado ao Arduíno');
+  res.redirect('/install/listar/'+ req.params.arduinoId);
 })
 module.exports = router;
 

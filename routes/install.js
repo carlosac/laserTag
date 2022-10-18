@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
+var five = require("johnny-five");
+var Component = require("../config/component")(five);
 const Componente = require('../models/componente');
 const Install = require('../models/install');
 const Arduino = require('../models/arduino');
@@ -8,6 +10,7 @@ const Arduino = require('../models/arduino');
 router.get('/listar/:arduinoId', ensureAuthenticated, async (req, res) => {
     var installs, componentes = [];
     var arduinoId = req.params.arduinoId;
+
 
     try {
         componentes = await Componente.find();

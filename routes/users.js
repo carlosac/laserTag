@@ -161,7 +161,6 @@ router.post('/register', (req, res) => {
   } else {
     //validation passed
     User.findOne({ email: email }).exec((err, user) => {
-      console.log(user);
       let perfilId;
       if (user) {
         errors.push({ msg: 'Email já cadastrado' });
@@ -179,7 +178,6 @@ router.post('/register', (req, res) => {
               console.log(err)
             }
           });
-          console.log(novoPerfil);
           perfilId = novoPerfil._id;
         }
         const newUser = new User({

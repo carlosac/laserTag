@@ -6,8 +6,9 @@ module.exports = function (passport) {
     passport.use(
         new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
             //match user
-            User.findOne({ email: email })
+            User.findOne({ email: email }).populate('perfil')
                 .then((user) => {
+                    console.log(user);
                     if (!user) {
                         return done(null, false, { message: 'email não cadastrado' });
                     }
@@ -34,6 +35,6 @@ module.exports = function (passport) {
     passport.deserializeUser(function (id, done) {
         User.findById(id, function (err, user) {
             done(err, user);
-        })
+        }).populate('perfil')
     })
 }

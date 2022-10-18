@@ -1,10 +1,13 @@
 const express = require('express');
+const app = require('../app');
 const router = express.Router();
+
 const { ensureAuthenticated } = require('../config/auth');
 
 //login page
 router.get('/', (req, res) => {
     if (req.isAuthenticated()) {
+
         res.redirect('/dashboard');
     } else {
         res.render('login');
@@ -26,7 +29,8 @@ router.get('/login', (req, res) => {
     })
 })
 router.get('/dashboard', ensureAuthenticated, async (req, res) => {
-
+    //led.off();
+    console.log(app.get('led'));
     res.render('dashboard',{
         user: req.user,
         layout: 'layoutMain'

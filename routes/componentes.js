@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Componente = require("../models/componente");
+const server = require("../models/ArduinoServer");
 const { ensureAuthenticated } = require('../config/auth');
 
 
